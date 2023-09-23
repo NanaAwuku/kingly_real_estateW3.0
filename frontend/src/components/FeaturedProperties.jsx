@@ -1,77 +1,53 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const FeaturedPropertyCard = ({ imageUrl, title, location, learnMoreLink }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+import House1 from "../assets/img/fet1.jpg";
+import House2 from "../assets/img/fet2.jpg";
+import House3 from "../assets/img/fet3.jpg";
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+const FeaturedProperties = () => {
+  const properties = [
+    {
+      id: 1,
+      name: 'Luxury Villa',
+      location: 'Beverly Hills, CA',
+      pricePerShare: '2.5 ETH',
+      imageSrc: House1, // Replace with actual image source
+    },
+    {
+      id: 2,
+      name: 'Beachfront Condo',
+      location: 'Miami Beach, FL',
+      pricePerShare: '1.8 ETH',
+      imageSrc: House2, // Replace with actual image source
+    },
+    {
+      id: 3,
+      name: 'Mountain Retreat',
+      location: 'Aspen, CO',
+      pricePerShare: '3.0 ETH',
+      imageSrc: House3, // Replace with actual image source
+    },
+  ];
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <img src={imageUrl} alt={title} className="w-full mb-4 rounded-lg" />
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600 mb-4">{location}</p>
-      <button onClick={openModal} className="text-blue-500 hover:underline cursor-pointer">
-        Learn More
-      </button>
-
-      {/* Property Details Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-8 max-w-md rounded-lg shadow-lg">
-            {/* Modal content */}
-            <h2 className="text-xl font-semibold mb-4">{title}</h2>
-            <p className="text-gray-600 mb-4">{location}</p>
-            
-            {/* Property details */}
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Property Details:</h3>
-              {/* Add more property details here */}
-              <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              {/* Add more details as needed */}
-            </div>
-            
-            {/* Buy Property Form */}
-            <form>
-              {/* Add form fields for buying the property */}
-              <div className="mb-4">
-                <label htmlFor="paymentAmount" className="block text-sm font-medium text-gray-700">
-                  Payment Amount (ETH)
-                </label>
-                <input
-                  type="number"
-                  id="paymentAmount"
-                  name="paymentAmount"
-                  className="mt-1 p-2 w-full border rounded-md"
-                  // Add onChange and value props to manage the form input
-                />
-              </div>
-
-              {/* Add more form fields as needed */}
-
-              <div className="mt-4">
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
-                >
-                  Buy Property
-                </button>
-              </div>
-            </form>
-            
-            <button onClick={closeModal} className="text-blue-500 hover:underline cursor-pointer mt-4">
-              Close
-            </button>
+    <div className="container mx-auto py-6">
+      <h1 className="text-3xl font-semibold mb-6">Featured Properties</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {properties.map((property) => (
+          <div key={property.id} className="bg-white rounded-lg shadow-md p-4">
+            <img
+              src={property.imageSrc}
+              alt={property.name}
+              className="w-full h-40 object-cover mb-4"
+            />
+            <h2 className="text-2xl font-semibold">{property.name}</h2>
+            <p>Location: {property.location}</p>
+            <p>Price Per Share: {property.pricePerShare}</p>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 };
 
-export default FeaturedPropertyCard;
+export default FeaturedProperties;

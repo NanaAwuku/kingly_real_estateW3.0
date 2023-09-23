@@ -1,18 +1,25 @@
 import React from 'react'
-import HeroSection from '../components/Hero'
-import Navbar from '../components/Navbar'
 import TrustedCompanies from '../components/TrustedCompanies'
-import FeaturedProperties from '../components/FeaturedProperties'
-import HeroSub from '../components/HeroSub'
+import NewHero from '../components/newHero'
+import CoreValues from '../components/CoreValues'
+import NewNav from '../components/NewNav'
+import PopularResidence from '../components/PopularResidences'
+import GoldSection from '../components/GoldSection'
+import { FooterWithLogo } from '../components/Footer'
+import Invest from '../components/Invest'
+
 
 const Index = () => {
   return (
-    <div>
-      <Navbar/>
-      <HeroSection/>
+    <div className=''>
+      <NewNav/>
+      <NewHero/>
       <TrustedCompanies/>
-      <FeaturedProperties/>
-      <HeroSub/>
+      <Invest/>
+      <PopularResidence/>
+      <CoreValues/>
+      <GoldSection/>
+      <FooterWithLogo/>
     </div>
   )
 }
