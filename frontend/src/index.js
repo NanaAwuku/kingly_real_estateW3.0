@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import PropertyListPage from "./pages/PropertyPage";
 import NewPropertyPage from "./components/NewProperties";
+import NewPropertyDetailsPage from "./components/NewPropertyDetails";
 
 
 
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/property/:tokenId",
-    element: <PropertyDetailsPage />,
+    element: <NewPropertyDetailsPage />,
   },
   {
     path: "/property-list", // Define the path for the Property List page

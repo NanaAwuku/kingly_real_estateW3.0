@@ -81,7 +81,7 @@ const NewNav = () => {
               </li>
               <li>
                 <Link
-                  to="/viewproperty"
+                  to="/newProperty"
                   className={`flex items-center text-[20px] px-2 py-1 hover:text-gray-300 ${
                     scrolling ? "text-gray-800" : "text-gray-800"
                   }`}
