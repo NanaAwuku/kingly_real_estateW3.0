@@ -6,10 +6,11 @@ const NewHero = () => {
   return (
     <section className="relative md:pt-24 w-full bg-gradient-to-b from-slate-50 dark:from-slate-800 to-transparent">
       <div className="text-center">
-        <h1 className="font-bold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-6">
-          Build wealth with real estate <br />{" "}
+        <h1 className="font-bold lg:leading-normal leading-normal mt-24 lg:mt-2 text-xl lg:text-5xl text-left lg:text-center mb-6">
+          Build wealth with real estate <br />
           <span className="">one brick</span> at a time
         </h1>
+
         <p className="text-slate-400 mx-auto text-xl max-w-xl">
           Invest in rental properties without getting locked in (or out). Buy
           just a fraction of a property and collect your first rent payment

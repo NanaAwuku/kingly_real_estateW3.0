@@ -6,7 +6,7 @@ async function main() {
   console.log("Deploying RealEstateMarketplace contract with the account:", deployer.address);
 
   // Set the address of the deployed RealEstateToken contract
-  const realEstateTokenAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"; // Replace with the actual address
+  const realEstateTokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Replace with the actual address
 
   const listingFee = ethers.parseEther("0.01"); // Listing fee in Ether
 
@@ -15,7 +15,7 @@ async function main() {
 
   await marketplace.waitForDeployment();
 
-  console.log("RealEstateMarketplace contract deployed to:", marketplace.address);
+  console.log("RealEstateMarketplace contract deployed to:", await marketplace.getAddress());
 }
 
 main()

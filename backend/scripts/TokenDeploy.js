@@ -11,9 +11,8 @@ async function main() {
   const RealEstateToken = await ethers.getContractFactory("RealEstateToken");
   const realEstateToken = await RealEstateToken.deploy(baseURI);
 
-  await realEstateToken.waitForDeployment();
-
-  console.log("RealEstateToken contract deployed to:", realEstateToken.address);
+ 
+  console.log("RealEstateToken contract deployed to:", await realEstateToken.getAddress());
 
 }
 

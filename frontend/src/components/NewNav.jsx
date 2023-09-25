@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { FaHome, FaBuilding, FaUser, FaBars } from "react-icons/fa";
+import { FaHome, FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
+import { useEthereum } from "../context/EthereumContext";
 
 import logo from "../assets/png/logo-no-background.png";
 
 const NewNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+  const [connected, setConnected] = useState(false); // State variable for connection status
+  const [walletAddress, setWalletAddress] = useState(""); // State variable for wallet address
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const { connectToMetaMask, provider, disconnectFromMetaMask } = useEthereum();
+
+  const handleConnectClick = async () => {
+    await connectToMetaMask(); // Connect to MetaMask when the button is clicked
   };
 
   useEffect(() => {
@@ -33,6 +38,17 @@ const NewNav = () => {
     };
   }, []);
 
+  useEffect(() => {
+    // Check if MetaMask provider is available and an account is connected
+    if (provider && provider.provider && provider.provider.selectedAddress) {
+      setConnected(true);
+      setWalletAddress(provider.provider.selectedAddress); // Set the wallet address
+    } else {
+      setConnected(false);
+      setWalletAddress(""); // Reset wallet address when disconnected
+    }
+  }, [provider]);
+
   return (
     <nav
       className={`fixed top-0 w-full z-10 ${
@@ -51,7 +67,7 @@ const NewNav = () => {
               KinGly
             </span>
           </div>
-          <div>
+          <div className="hidden md:block"> {/* Hide on small screens */}
             <ul className="flex space-x-4 items-center">
               <li>
                 <Link
@@ -60,57 +76,60 @@ const NewNav = () => {
                     scrolling ? "text-gray-800" : "text-gray-800"
                   }`}
                 >
-                  <FaHome className="mr-1" />
                   Home
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/market"
+                  to="/viewproperty"
                   className={`flex items-center text-[20px] px-2 py-1 hover:text-gray-300 ${
                     scrolling ? "text-gray-800" : "text-gray-800"
                   }`}
                 >
-                  <FaBuilding className="mr-1" />
-                  Market
+                  Property
                 </Link>
               </li>
+              {connected && ( // Display the "Create" button only when connected
+                <li>
+                  <Link
+                    to="/create"
+                    className={`flex items-center text-[20px] px-2 py-1 hover:text-gray-300 ${
+                      scrolling ? "text-gray-800" : "text-gray-800"
+                    }`}
+                  >
+                    Create
+                  </Link>
+                </li>
+              )}
               <li>
-                <Link
-                  to="/listing"
-                  className={`flex items-center text-[20px] px-2 py-1 hover:text-gray-300 ${
-                    scrolling ? "text-gray-800" : "text-gray-800"
-                  }`}
-                >
-                  Listing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/profile"
-                  className={`flex items-center text-[20px] px-2 py-1 hover:text-gray-300 ${
-                    scrolling ? "text-gray-800" : "text-gray-800"
-                  }`}
-                >
-                  <FaUser className="mr-1" />
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Button
-                  className={`focus:outline-none bg-blue-500 text-white rounded-full ${
-                    scrolling ? "bg-blue-950 text-white" : "text-white"
-                  }`}
-                >
-                  Connect Wallet
-                </Button>
+                {connected ? (
+                  // Display the "Disconnect" button when connected
+                  <Button
+                    onClick={disconnectFromMetaMask} // Call the disconnect function
+                    className={`focus:outline-none bg-red-500 text-white rounded-full ${
+                      scrolling ? "bg-red-950 text-white" : "text-white"
+                    }`}
+                  >
+                    Disconnect
+                  </Button>
+                ) : (
+                  // Display the "Connect" button when not connected
+                  <Button
+                    onClick={handleConnectClick}
+                    className={`focus:outline-none bg-blue-500 text-white rounded-full ${
+                      scrolling ? "bg-blue-950 text-white" : "text-white"
+                    }`}
+                  >
+                    Connect
+                  </Button>
+                )}
               </li>
             </ul>
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden"> {/* Show on small screens */}
             <button
-              onClick={toggleMenu}
+              onClick={() => setIsOpen(!isOpen)}
               className={`focus:outline-none ${
                 scrolling ? "text-white" : "text-gray-800"
               }`}
@@ -131,58 +150,6 @@ const NewNav = () => {
               >
                 <FaHome className="mr-1" />
                 Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/properties"
-                className={`flex items-center py-1 hover:bg-gray-200 ${
-                  scrolling ? "text-white" : "text-gray-800"
-                }`}
-              >
-                <FaBuilding className="mr-1" />
-                Properties
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/buy"
-                className={`flex items-center py-1 hover:bg-gray-200 ${
-                  scrolling ? "text-white" : "text-gray-800"
-                }`}
-              >
-                Buy
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/sell"
-                className={`flex items-center py-1 hover:bg-gray-200 ${
-                  scrolling ? "text-white" : "text-gray-800"
-                }`}
-              >
-                Sell
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/listing"
-                className={`flex items-center py-1 hover:bg-gray-200 ${
-                  scrolling ? "text-white" : "text-gray-800"
-                }`}
-              >
-                Listing
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/profile"
-                className={`flex items-center py-1 hover:bg-gray-200 ${
-                  scrolling ? "text-white" : "text-gray-800"
-                }`}
-              >
-                <FaUser className="mr-1" />
-                Profile
               </Link>
             </li>
           </ul>
